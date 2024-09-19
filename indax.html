@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Fetch</title>
+        <style>
+            #card{
+                border: 2px solid black;
+            }
+            body{
+                text-align: center;
+                background-color: rgb(201, 143, 96);
+            }
+            .boxCard{
+                width: 40%;
+                height: 250px;
+                display: inline-block;
+                border: 2px solid rgb(18, 19, 18);
+                margin: 10px 5px;
+                background-color: rgb(248, 217, 221);
+            }
+            h1{
+                font-size: 28px;
+                color: rgb(253, 66, 9) ;
+            }
+            h4{
+                font-size: 18px;
+            }
+            .false{
+                background-color: rgb(122, 167, 55);
+                text-decoration: line-through;
+            }
+            .true{
+                background-color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="card">Todos</div>
+        <script>
+            console.log("JS Connected.......");
+            let card = document.getElementById("card");
+            let url = "https://jsonplaceholder.typicode.com/todos";
+            fetch(url)
+            .then(response => response.json())
+            .then((userData) => {
+                showData(userData)
+                // console.log("Data: ",userData);
+            })
+            .catch(err => console.log(err))
+            
+            const showData = (data) => {
+                console.log(data);
+                let cardUi =``;
+                for(let i = 0; i < 50; i++){
+                    if(data[i].completed==true){
+                    cardUi += `
+                                <div class= "boxCard true">
+                                    <h1>Name: ${data[i].userId}</h1>
+                                    <h4>Email: ${data[i].id}</h4>
+                                    <h4>Phone: ${data[i].title}</h4>
+                                    <h4>Website: ${data[i].completed}</h4>
+                                    
+                                </div>
+                    `}
+                                else{
+                                    cardUi += `
+                                <div class= "boxCard false">
+                                    <h1>Name: ${data[i].userId}</h1>
+                                    <h4>Email: ${data[i].id}</h4>
+                                    <h4>Phone: ${data[i].title}</h4>
+                                    <h4>Website: ${data[i].completed}</h4>
+                                    
+                                </div>
+                    `
+                                }
+                card.innerHTML = cardUi;
+                }
+                
+            }
+            // showData(data)
+        </script>
+    </body>
+    </html>
